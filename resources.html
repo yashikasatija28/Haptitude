@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBloom - Resource Hub</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar is-success" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html"><span class="logo-emoji">🌱</span><strong class="ml-2 is-size-4">MindBloom</strong></a>
+            <a role="button" class="navbar-burger" data-target="mainNav"><span></span><span></span><span></span></a>
+        </div>
+        <div id="mainNav" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="index.html"><i class="fas fa-home mr-2"></i>Home</a>
+                <a class="navbar-item" href="quiz.html"><i class="fas fa-brain mr-2"></i>Quiz</a>
+                <a class="navbar-item" href="survey.html"><i class="fas fa-school mr-2"></i>Survey</a>
+                <a class="navbar-item is-active" href="resources.html"><i class="fas fa-lightbulb mr-2"></i>Resources</a>
+                <a class="navbar-item" href="dashboard.html"><i class="fas fa-chart-bar mr-2"></i>Dashboard</a>
+            </div>
+            <div class="navbar-end"><div class="navbar-item"><button class="button is-light is-rounded" onclick="logout()"><i class="fas fa-sign-out-alt mr-1"></i>Logout</button></div></div>
+        </div>
+    </nav>
+
+    <section class="hero is-success is-small">
+        <div class="hero-body"><div class="container has-text-centered">
+            <h1 class="title is-2">📚 Resource Hub</h1>
+            <p class="subtitle is-4">Activities, Quotes & Tips to Feel Awesome!</p>
+        </div></div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="tabs is-centered is-boxed is-large" id="resource-tabs">
+                <ul>
+                    <li class="is-active" data-tab="activities-tab"><a><span class="icon"><i class="fas fa-gamepad"></i></span><span>Activities 🎮</span></a></li>
+                    <li data-tab="quotes-tab"><a><span class="icon"><i class="fas fa-quote-left"></i></span><span>Quotes 💬</span></a></li>
+                    <li data-tab="tips-tab"><a><span class="icon"><i class="fas fa-lightbulb"></i></span><span>Tips 💡</span></a></li>
+                    <li data-tab="breathing-tab"><a><span class="icon"><i class="fas fa-wind"></i></span><span>Breathing 🧘</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Activities -->
+            <div id="activities-tab" class="tab-content is-active">
+                <div class="columns is-multiline">
+                    <div class="column is-4"><div class="card activity-card"><div class="card-content has-text-centered"><span class="activity-icon">🎨</span><h3 class="title is-4">Draw Your Feelings</h3><p>Take paper and draw how you feel using colors!</p><div class="tags is-centered mt-3"><span class="tag is-info is-rounded">Creative</span><span class="tag is-success is-rounded">5-15 min</span></div><button class="button is-primary is-rounded mt-3" onclick="showModal('🎨 Draw Your Feelings','Draw your feelings using colors: Happy=Yellow, Calm=Blue, Energetic=Red. Let your art express what words cannot!')">Start</button></div></div></div>
+                    <div class="column is-4"><div class="card activity-card"><div class="card-content has-text-centered"><span class="activity-icon">📝</span><h3 class="title is-4">Gratitude Journal</h3><p>Write 3 things you're grateful for today!</p><div class="tags is-centered mt-3"><span class="tag is-warning is-rounded">Mindful</span><span class="tag is-success is-rounded">5 min</span></div><button class="button is-primary is-rounded mt-3" onclick="openGratitude()">Start Writing</button></div></div></div>
+                    <div class="column is-4"><div class="card activity-card"><div class="card-content has-text-centered"><span class="activity-icon">🏃</span><h3 class="title is-4">Movement Break</h3><p>10 jumping jacks, then stretch your arms high!</p><div class="tags is-centered mt-3"><span class="tag is-danger is-rounded">Physical</span><span class="tag is-success is-rounded">3 min</span></div><button class="button is-primary is-rounded mt-3" onclick="startTimer(180)">Start Timer</button></div></div></div>
+                    <div class="column is-4"><div class="card activity-card"><div class="card-content has-text-centered"><span class="activity-icon">🎵</span><h3 class="title is-4">Happy Music Time</h3><p>Listen to your favorite song and dance!</p><div class="tags is-centered mt-3"><span class="tag is-link is-rounded">Fun</span><span class="tag is-success is-rounded">5 min</span></div><button class="button is-primary is-rounded mt-3" onclick="showModal('🎵 Happy Music','Put on your favorite happy song and dance like nobody is watching! 💃🕺')">Let's Dance!</button></div></div></div>
+                    <div class="column is-4"><div class="card activity-card"><div class="card-content has-text-centered"><span class="activity-icon">🤗</span><h3 class="title is-4">Kindness Challenge</h3><p>Do something nice for someone today!</p><div class="tags is-centered mt-3"><span class="tag is-primary is-rounded">Social</span><span class="tag is-success is-rounded">Anytime</span></div><button class="button is-primary is-rounded mt-3" onclick="showModal('🤗 Kindness Challenge','Ideas: 1) Compliment a friend 2) Help carry something 3) Share your snack 4) Smile at 5 people!')">Accept!</button></div></div></div>
+                    <div class="column is-4"><div class="card activity-card"><div class="card-content has-text-centered"><span class="activity-icon">🌿</span><h3 class="title is-4">Nature Walk</h3><p>Go outside and find 5 different things in nature!</p><div class="tags is-centered mt-3"><span class="tag is-success is-rounded">Outdoor</span><span class="tag is-info is-rounded">15 min</span></div><button class="button is-primary is-rounded mt-3" onclick="showModal('🌿 Nature Scavenger Hunt','Find: 🍃 Green leaf 🌸 Flower 🪨 Smooth stone 🐛 Bug 🌤️ Cloud shape')">Explore!</button></div></div></div>
+                </div>
+            </div>
+
+            <!-- Quotes -->
+            <div id="quotes-tab" class="tab-content">
+                <div class="columns is-centered"><div class="column is-8">
+                    <div class="has-text-centered">
+                        <div class="quote-card"><span class="quote-mark">"</span><p class="quote-text" id="quote-text">Loading...</p><p class="quote-author" id="quote-author">- Author</p></div>
+                        <button class="button is-success is-rounded is-large mt-5 btn-bounce" onclick="newQuote()"><i class="fas fa-random mr-2"></i>New Quote! ✨</button>
+                    </div>
+                </div></div>
+            </div>
+
+            <!-- Tips -->
+            <div id="tips-tab" class="tab-content">
+                <div class="columns is-multiline">
+                    <div class="column is-6"><div class="card tip-card"><div class="card-content"><h3 class="title is-4">😴 Sleep Better</h3><ul class="tip-list"><li>🌙 Same bedtime every night</li><li>📱 No screens 30 min before bed</li><li>📖 Read a book instead</li><li>🧸 Keep room dark and cool</li><li>🎵 Try soft music or nature sounds</li></ul></div></div></div>
+                    <div class="column is-6"><div class="card tip-card"><div class="card-content"><h3 class="title is-4">😰 Handle Stress</h3><ul class="tip-list"><li>🫁 Take 5 deep breaths</li><li>🗣️ Talk to someone you trust</li><li>📝 Write down what's bothering you</li><li>🏃 Get some exercise</li><li>🎨 Do something creative</li></ul></div></div></div>
+                    <div class="column is-6"><div class="card tip-card"><div class="card-content"><h3 class="title is-4">👫 Make Friends</h3><ul class="tip-list"><li>😊 Smile and say hello</li><li>👂 Be a good listener</li><li>🤝 Share and take turns</li><li>💪 Stand up for others</li><li>🎮 Invite someone to play</li></ul></div></div></div>
+                    <div class="column is-6"><div class="card tip-card"><div class="card-content"><h3 class="title is-4">📚 Study Smart</h3><ul class="tip-list"><li>⏰ Study in 25-min sessions</li><li>📋 Make a to-do list</li><li>🍎 Take healthy snack breaks</li><li>✋ Ask for help when stuck</li><li>🎯 Set small, achievable goals</li></ul></div></div></div>
+                    <div class="column is-6"><div class="card tip-card"><div class="card-content"><h3 class="title is-4">💪 Build Confidence</h3><ul class="tip-list"><li>🗣️ Use positive self-talk</li><li>🏆 Celebrate small wins</li><li>🆕 Try new things</li><li>🪞 Say something nice about yourself</li><li>📝 Keep a success journal</li></ul></div></div></div>
+                    <div class="column is-6"><div class="card tip-card"><div class="card-content"><h3 class="title is-4">🍎 Stay Healthy</h3><ul class="tip-list"><li>💧 Drink lots of water</li><li>🥗 Eat fruits and veggies</li><li>🏃 Exercise daily</li><li>😴 Sleep 8-10 hours</li><li>☀️ Spend time outdoors</li></ul></div></div></div>
+                </div>
+            </div>
+
+            <!-- Breathing -->
+            <div id="breathing-tab" class="tab-content">
+                <div class="columns is-centered"><div class="column is-6 has-text-centered">
+                    <div class="card breathing-card"><div class="card-content">
+                        <h2 class="title is-3">🧘 Guided Breathing</h2>
+                        <p class="subtitle">Follow the circle to breathe calmly</p>
+                        <div class="breathing-circle-container">
+                            <div class="breathing-circle" id="breathing-circle"><span id="breathing-text">Press Start</span></div>
+                        </div>
+                        <div class="field mt-4"><label class="label">Pattern:</label><div class="control"><div class="select is-rounded"><select id="breathing-pattern"><option value="4-4-4">Box Breathing (4-4-4-4)</option><option value="4-7-8">4-7-8 Relaxing</option><option value="5-5">Simple (5-5)</option></select></div></div></div>
+                        <p class="is-size-4 mt-3" id="breath-counter">Cycles: 0</p>
+                        <button class="button is-success is-large is-rounded mt-4 btn-bounce" id="start-breathing" onclick="toggleBreathing()"><i class="fas fa-play mr-2"></i>Start Breathing</button>
+                    </div></div>
+                </div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activity Modal -->
+    <div class="modal" id="activity-modal">
+        <div class="modal-background" onclick="closeModal()"></div>
+        <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title" id="modal-title">Activity</p><button class="delete" onclick="closeModal()"></button></header><section class="modal-card-body"><p class="is-size-5" id="modal-content"></p></section><footer class="modal-card-foot"><button class="button is-success is-rounded" onclick="closeModal()">Got it! 👍</button></footer></div>
+    </div>
+
+    <!-- Gratitude Modal -->
+    <div class="modal" id="gratitude-modal">
+        <div class="modal-background" onclick="closeGratitude()"></div>
+        <div class="modal-card"><header class="modal-card-head has-background-warning"><p class="modal-card-title">📝 Gratitude Journal</p><button class="delete" onclick="closeGratitude()"></button></header><section class="modal-card-body"><p class="mb-4">Write 3 things you're grateful for:</p><div class="field"><label class="label">1. 🌟</label><input class="input is-rounded" id="g1" placeholder="I am grateful for..."></div><div class="field"><label class="label">2. 💖</label><input class="input is-rounded" id="g2" placeholder="I am grateful for..."></div><div class="field"><label class="label">3. 🌈</label><input class="input is-rounded" id="g3" placeholder="I am grateful for..."></div></section><footer class="modal-card-foot"><button class="button is-success is-rounded" onclick="saveGratitude()">Save 💾</button></footer></div>
+    </div>
+
+    <!-- Timer Modal -->
+    <div class="modal" id="timer-modal">
+        <div class="modal-background"></div>
+        <div class="modal-card"><header class="modal-card-head has-background-primary"><p class="modal-card-title has-text-white">⏱️ Movement Break</p><button class="delete" onclick="stopTimer()"></button></header><section class="modal-card-body has-text-centered"><p class="is-size-1 has-text-weight-bold" id="timer-display">3:00</p><progress class="progress is-primary is-large mt-3" id="timer-progress" value="100" max="100"></progress></section></div>
+    </div>
+
+    <footer class="footer app-footer">
+        <div class="content has-text-centered">
+            <p><strong>MindBloom</strong> Resource Hub — <strong>JECRC</strong>, Jaipur, Rajasthan 🇮🇳</p>
+        </div>
+    </footer>
+
+    <div id="notification-container"></div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    var quotes=[
+        {text:"You are braver than you believe, stronger than you seem, and smarter than you think.",author:"A.A. Milne"},
+        {text:"It's okay to not be okay. What matters is that you don't give up.",author:"Unknown"},
+        {text:"Every day may not be good, but there is something good in every day.",author:"Alice Morse Earle"},
+        {text:"You don't have to be perfect to be amazing.",author:"Unknown"},
+        {text:"Believe you can and you're halfway there.",author:"Theodore Roosevelt"},
+        {text:"Be yourself; everyone else is already taken.",author:"Oscar Wilde"},
+        {text:"In a world where you can be anything, be kind.",author:"Jennifer Dukes Lee"},
+        {text:"You are enough just as you are.",author:"Meghan Markle"},
+        {text:"Mistakes are proof that you are trying.",author:"Unknown"},
+        {text:"The future belongs to those who believe in the beauty of their dreams.",author:"Eleanor Roosevelt"},
+        {text:"Happiness comes from your own actions.",author:"Dalai Lama"},
+        {text:"Keep your face toward the sunshine and shadows will fall behind you.",author:"Walt Whitman"}
+    ];
+    var breathingTimeout=null,breathCycles=0,timerInterval=null;
+
+    $(document).ready(function(){
+        checkAuth();
+        $('.navbar-burger').click(function(){$(this).toggleClass('is-active');$('#mainNav').toggleClass('is-active');});
+        $('#resource-tabs li').click(function(){$('#resource-tabs li').removeClass('is-active');$(this).addClass('is-active');$('.tab-content').removeClass('is-active');$('#'+$(this).data('tab')).addClass('is-active');});
+        newQuote();
+    });
+
+    function newQuote(){var q=quotes[Math.floor(Math.random()*quotes.length)];$('#quote-text').text(q.text);$('#quote-author').text('- '+q.author);}
+    function showModal(title,content){$('#modal-title').text(title);$('#modal-content').text(content);$('#activity-modal').addClass('is-active');}
+    function closeModal(){$('#activity-modal').removeClass('is-active');}
+    function openGratitude(){$('#gratitude-modal').addClass('is-active');}
+    function closeGratitude(){$('#gratitude-modal').removeClass('is-active');}
+    function saveGratitude(){
+        var entries=[$('#g1').val(),$('#g2').val(),$('#g3').val()].filter(function(e){return e.trim();});
+        if(entries.length===0){showNotification('Write at least one thing! ✏️','is-warning');return;}
+        var saved=JSON.parse(localStorage.getItem('gratitudeEntries')||'[]');
+        saved.push({entries:entries,date:new Date().toISOString()});
+        localStorage.setItem('gratitudeEntries',JSON.stringify(saved));
+        closeGratitude();showNotification('Gratitude saved! 🌟','is-success');
+        $('#g1,#g2,#g3').val('');
+    }
+
+    function startTimer(seconds){
+        $('#timer-modal').addClass('is-active');var remaining=seconds,total=seconds;
+        function update(){
+            var m=Math.floor(remaining/60),s=remaining%60;
+            $('#timer-display').text(m+':'+s.toString().padStart(2,'0'));
+            $('#timer-progress').val((remaining/total)*100);
+            if(remaining<=0){clearInterval(timerInterval);$('#timer-display').text('Done! 🎉');showNotification('Great job! 🎉','is-success');setTimeout(function(){$('#timer-modal').removeClass('is-active');},2000);}
+            remaining--;
+        }
+        update();timerInterval=setInterval(update,1000);
+    }
+    function stopTimer(){clearInterval(timerInterval);$('#timer-modal').removeClass('is-active');}
+
+    function toggleBreathing(){
+        if(breathingTimeout){clearTimeout(breathingTimeout);breathingTimeout=null;$('#start-breathing').html('<i class="fas fa-play mr-2"></i>Start Breathing');$('#breathing-text').text('Press Start');$('#breathing-circle').removeClass('inhale exhale hold');return;}
+        $('#start-breathing').html('<i class="fas fa-stop mr-2"></i>Stop');breathCycles=0;
+        var pattern=$('#breathing-pattern').val(),phases;
+        if(pattern==='4-7-8')phases=[{text:'Breathe In...',duration:4000,cls:'inhale'},{text:'Hold...',duration:7000,cls:'hold'},{text:'Breathe Out...',duration:8000,cls:'exhale'}];
+        else if(pattern==='5-5')phases=[{text:'Breathe In...',duration:5000,cls:'inhale'},{text:'Breathe Out...',duration:5000,cls:'exhale'}];
+        else phases=[{text:'Breathe In...',duration:4000,cls:'inhale'},{text:'Hold...',duration:4000,cls:'hold'},{text:'Breathe Out...',duration:4000,cls:'exhale'},{text:'Hold...',duration:4000,cls:'hold'}];
+        var idx=0;
+        function next(){
+            var p=phases[idx%phases.length];
+            $('#breathing-text').text(p.text);$('#breathing-circle').removeClass('inhale exhale hold').addClass(p.cls);
+            if(idx>0&&idx%phases.length===0){breathCycles++;$('#breath-counter').text('Cycles: '+breathCycles);}
+            idx++;breathingTimeout=setTimeout(next,p.duration);
+        }
+        next();
+    }
+    </script>
+</body>
+</html>
