@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBloom - Children's Mental Well-Being</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar is-primary" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html"><span class="logo-emoji">🌱</span><strong class="ml-2 is-size-4">MindBloom</strong></a>
+            <a role="button" class="navbar-burger" data-target="mainNav"><span></span><span></span><span></span></a>
+        </div>
+        <div id="mainNav" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item is-active" href="index.html"><i class="fas fa-home mr-2"></i>Home</a>
+                <a class="navbar-item" href="quiz.html"><i class="fas fa-brain mr-2"></i>Quiz</a>
+                <a class="navbar-item" href="survey.html"><i class="fas fa-school mr-2"></i>Survey</a>
+                <a class="navbar-item" href="resources.html"><i class="fas fa-lightbulb mr-2"></i>Resources</a>
+                <a class="navbar-item" href="dashboard.html"><i class="fas fa-chart-bar mr-2"></i>Dashboard</a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <span id="user-greeting" class="mr-3"></span>
+                    <button class="button is-light is-rounded" onclick="logout()"><i class="fas fa-sign-out-alt mr-1"></i>Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO with JECRC Branding -->
+    <section class="hero is-medium hero-gradient">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="animate__animated animate__bounceInDown">
+                    <h1 class="title is-1 has-text-white hero-title">🌈 How Are You Feeling Today? 🌈</h1>
+                </div>
+                <div class="animate__animated animate__fadeInUp animate__delay-1s">
+                    <p class="subtitle is-3 has-text-white-ter">Let's explore your feelings together!</p>
+                    <p class="has-text-white-bis is-size-5 mt-2">
+                        <i class="fas fa-university mr-2"></i>
+                        A Project by <strong>Jaipur Engineering College and Research Centre</strong>
+                    </p>
+                    <p class="has-text-white-ter is-size-6">Jaipur, Rajasthan 🇮🇳</p>
+                </div>
+                <div class="animate__animated animate__fadeInUp animate__delay-2s mt-5">
+                    <div class="mood-selector">
+                        <span class="mood-emoji" data-mood="sad" title="Sad">😢</span>
+                        <span class="mood-emoji" data-mood="worried" title="Worried">😟</span>
+                        <span class="mood-emoji" data-mood="neutral" title="Okay">😐</span>
+                        <span class="mood-emoji" data-mood="happy" title="Happy">😊</span>
+                        <span class="mood-emoji" data-mood="great" title="Great!">😄</span>
+                    </div>
+                    <p class="has-text-white mt-3 is-size-5" id="mood-response">Click an emoji to tell us how you feel!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered section-title">🎯 What Would You Like To Do?</h2>
+            <div class="columns is-multiline mt-5">
+                <div class="column is-4">
+                    <div class="card feature-card card-quiz">
+                        <div class="card-content has-text-centered">
+                            <div class="feature-icon">🧠</div>
+                            <h3 class="title is-3">Mental Health Check</h3>
+                            <p class="subtitle is-6">Answer fun questions about your feelings and thoughts. It's like a game! 🎮</p>
+                            <div class="tags is-centered mt-3">
+                                <span class="tag is-info is-rounded">15 Questions</span>
+                                <span class="tag is-success is-rounded">~10 minutes</span>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="quiz.html" class="card-footer-item button is-primary is-rounded m-3 btn-bounce"><i class="fas fa-play mr-2"></i>Start Quiz</a>
+                        </footer>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card feature-card card-survey">
+                        <div class="card-content has-text-centered">
+                            <div class="feature-icon">🏫</div>
+                            <h3 class="title is-3">School Survey</h3>
+                            <p class="subtitle is-6">Tell us about your school experience! Rate different things with stars! ⭐</p>
+                            <div class="tags is-centered mt-3">
+                                <span class="tag is-warning is-rounded">10 Questions</span>
+                                <span class="tag is-success is-rounded">~8 minutes</span>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="survey.html" class="card-footer-item button is-warning is-rounded m-3 btn-bounce"><i class="fas fa-star mr-2"></i>Take Survey</a>
+                        </footer>
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="card feature-card card-resources">
+                        <div class="card-content has-text-centered">
+                            <div class="feature-icon">📚</div>
+                            <h3 class="title is-3">Resource Hub</h3>
+                            <p class="subtitle is-6">Fun activities, inspiring quotes, and helpful tips to feel awesome! 💪</p>
+                            <div class="tags is-centered mt-3">
+                                <span class="tag is-danger is-rounded">Activities</span>
+                                <span class="tag is-link is-rounded">Tips & Quotes</span>
+                            </div>
+                        </div>
+                        <footer class="card-footer">
+                            <a href="resources.html" class="card-footer-item button is-success is-rounded m-3 btn-bounce"><i class="fas fa-book-open mr-2"></i>Explore</a>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section has-background-light">
+        <div class="container">
+            <h2 class="title is-2 has-text-centered section-title">📊 Our Impact</h2>
+            <div class="columns has-text-centered mt-5">
+                <div class="column is-3"><div class="stat-card"><div class="stat-number" id="stat-students">0</div><div class="stat-label">Students Assessed</div><div class="stat-icon">👧👦</div></div></div>
+                <div class="column is-3"><div class="stat-card"><div class="stat-number" id="stat-schools">0</div><div class="stat-label">Schools Connected</div><div class="stat-icon">🏫</div></div></div>
+                <div class="column is-3"><div class="stat-card"><div class="stat-number" id="stat-states">0</div><div class="stat-label">States Covered</div><div class="stat-icon">🗺️</div></div></div>
+                <div class="column is-3"><div class="stat-card"><div class="stat-number" id="stat-score">0</div><div class="stat-label">Avg Happiness Score</div><div class="stat-icon">😊</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="daily-tip-card">
+                <div class="columns is-vcentered">
+                    <div class="column is-2 has-text-centered"><span class="tip-icon">💡</span></div>
+                    <div class="column">
+                        <h3 class="title is-4 has-text-white">Daily Well-Being Tip</h3>
+                        <p class="is-size-5 has-text-white-ter" id="daily-tip">Loading today's tip...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER with JECRC Branding -->
+    <footer class="footer app-footer">
+        <div class="content has-text-centered">
+            <div class="mb-3">
+                <span class="is-size-2">🌱</span>
+            </div>
+            <p class="is-size-4"><strong>MindBloom</strong> - Children's Mental Well-Being Assessment Tool</p>
+            <p class="is-size-5 mt-2">
+                <i class="fas fa-university mr-2"></i>
+                Developed at <strong>Jaipur Engineering College and Research Centre (JECRC)</strong>
+            </p>
+            <p class="is-size-6">
+                <i class="fas fa-map-marker-alt mr-1"></i> Jaipur, Rajasthan, India 🇮🇳
+            </p>
+            <div class="mt-4">
+                <span class="tag is-primary is-medium mr-2">HTML5</span>
+                <span class="tag is-info is-medium mr-2">CSS3</span>
+                <span class="tag is-warning is-medium mr-2">JavaScript</span>
+                <span class="tag is-danger is-medium mr-2">Firebase</span>
+                <span class="tag is-link is-medium">Bulma CSS</span>
+            </div>
+            <p class="mt-3 is-size-7 has-text-grey">© 2024 JECRC, Jaipur. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="notification-container"></div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    $(document).ready(function(){
+        checkAuth(); loadDailyTip();
+        $('.navbar-burger').click(function(){$(this).toggleClass('is-active');$('#mainNav').toggleClass('is-active');});
+        $('.mood-emoji').click(function(){
+            $('.mood-emoji').removeClass('selected');$(this).addClass('selected');
+            var m=$(this).data('mood');
+            var r={sad:"It's okay to feel sad sometimes. Let's explore ways to feel better! 💕",worried:"Everyone worries sometimes. You're brave for sharing! 🤗",neutral:"That's perfectly fine! Let's make your day brighter! ✨",happy:"That's wonderful! Keep that happiness going! 🎉",great:"Amazing! You're a sunshine! Let's spread the joy! ☀️"};
+            $('#mood-response').text(r[m]);
+        });
+        var s=getAggregateStats();
+        animN('#stat-students',s.totalStudents);animN('#stat-schools',s.totalSchools);animN('#stat-states',s.totalStates);animN('#stat-score',s.avgScore);
+    });
+    function animN(sel,t){$({v:0}).animate({v:t},{duration:2000,step:function(){$(sel).text(Math.floor(this.v));},complete:function(){$(sel).text(t);}});}
+    </script>
+</body>
+</html>
