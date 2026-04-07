@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBloom - Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="login-page">
+    <div class="floating-shapes">
+        <div class="shape shape-1">🌟</div>
+        <div class="shape shape-2">🌈</div>
+        <div class="shape shape-3">🦋</div>
+        <div class="shape shape-4">🌺</div>
+        <div class="shape shape-5">☀️</div>
+        <div class="shape shape-6">🎈</div>
+    </div>
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-5">
+                    <div class="login-card">
+                        <div class="login-header">
+                            <div class="logo-container">
+                                <span class="logo-icon">🌱</span>
+                                <h1 class="title is-2 has-text-white">MindBloom</h1>
+                            </div>
+                            <p class="subtitle is-5 has-text-white-ter">Growing Happy Minds Together!</p>
+                        </div>
+                        <div class="login-body">
+                            <div class="tabs is-centered is-boxed" id="login-tabs">
+                                <ul>
+                                    <li class="is-active" data-tab="student-tab">
+                                        <a><span class="icon"><i class="fas fa-child"></i></span><span>Student</span></a>
+                                    </li>
+                                    <li data-tab="teacher-tab">
+                                        <a><span class="icon"><i class="fas fa-chalkboard-teacher"></i></span><span>Teacher</span></a>
+                                    </li>
+                                    <li data-tab="admin-tab">
+                                        <a><span class="icon"><i class="fas fa-user-shield"></i></span><span>Admin</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="student-tab" class="tab-content is-active">
+                                <form id="student-login-form">
+                                    <div class="field">
+                                        <label class="label"><i class="fas fa-user"></i> Your Name</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-rounded" type="text" placeholder="What's your name?" id="student-name" required>
+                                            <span class="icon is-left"><i class="fas fa-smile"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"><i class="fas fa-birthday-cake"></i> Your Age</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-rounded" type="number" placeholder="How old are you?" id="student-age" min="5" max="18" required>
+                                            <span class="icon is-left"><i class="fas fa-hashtag"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"><i class="fas fa-school"></i> School Name</label>
+                                        <div class="control">
+                                            <div class="select is-rounded is-fullwidth">
+                                                <select id="student-school" required>
+                                                    <option value="">Select your school</option>
+                                                    <option value="JECRC School">JECRC School, Jaipur</option>
+                                                    <option value="Delhi Public School">Delhi Public School, Jaipur</option>
+                                                    <option value="Kendriya Vidyalaya">Kendriya Vidyalaya, Jaipur</option>
+                                                    <option value="St. Xavier's School">St. Xavier's School, Jaipur</option>
+                                                    <option value="Maharaja Sawai Man Singh Vidyalaya">MSMS Vidyalaya, Jaipur</option>
+                                                    <option value="Ryan International">Ryan International, Jaipur</option>
+                                                    <option value="other">Other School</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field" id="other-school-field" style="display:none;">
+                                        <div class="control">
+                                            <input class="input is-rounded" type="text" placeholder="Enter your school name" id="other-school-name">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"><i class="fas fa-map-marker-alt"></i> State</label>
+                                        <div class="control">
+                                            <div class="select is-rounded is-fullwidth">
+                                                <select id="student-state" required>
+                                                    <option value="">Select your state</option>
+                                                    <option value="Rajasthan" selected>Rajasthan</option>
+                                                    <option value="Maharashtra">Maharashtra</option>
+                                                    <option value="Delhi">Delhi</option>
+                                                    <option value="Karnataka">Karnataka</option>
+                                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                                    <option value="Gujarat">Gujarat</option>
+                                                    <option value="West Bengal">West Bengal</option>
+                                                    <option value="Kerala">Kerala</option>
+                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label"><i class="fas fa-graduation-cap"></i> Class/Grade</label>
+                                        <div class="control">
+                                            <div class="select is-rounded is-fullwidth">
+                                                <select id="student-grade" required>
+                                                    <option value="">Select your class</option>
+                                                    <option value="1">Class 1</option><option value="2">Class 2</option>
+                                                    <option value="3">Class 3</option><option value="4">Class 4</option>
+                                                    <option value="5">Class 5</option><option value="6">Class 6</option>
+                                                    <option value="7">Class 7</option><option value="8">Class 8</option>
+                                                    <option value="9">Class 9</option><option value="10">Class 10</option>
+                                                    <option value="11">Class 11</option><option value="12">Class 12</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <div class="control">
+                                            <button type="submit" class="button is-primary is-fullwidth is-rounded is-medium btn-bounce">
+                                                <span class="icon"><i class="fas fa-rocket"></i></span>
+                                                <span>Let's Begin! 🚀</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="teacher-tab" class="tab-content">
+                                <form id="teacher-login-form">
+                                    <div class="field">
+                                        <label class="label">Email</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-rounded" type="email" placeholder="teacher@school.com" id="teacher-email" required>
+                                            <span class="icon is-left"><i class="fas fa-envelope"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Password</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-rounded" type="password" placeholder="Enter password" id="teacher-password" required>
+                                            <span class="icon is-left"><i class="fas fa-lock"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <button type="submit" class="button is-info is-fullwidth is-rounded is-medium">
+                                            <span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>Login as Teacher</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div id="admin-tab" class="tab-content">
+                                <form id="admin-login-form">
+                                    <div class="field">
+                                        <label class="label">Admin ID</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-rounded" type="text" placeholder="Enter Admin ID" id="admin-id" required>
+                                            <span class="icon is-left"><i class="fas fa-id-card"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label class="label">Password</label>
+                                        <div class="control has-icons-left">
+                                            <input class="input is-rounded" type="password" placeholder="Enter password" id="admin-password" required>
+                                            <span class="icon is-left"><i class="fas fa-lock"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="field mt-5">
+                                        <button type="submit" class="button is-danger is-fullwidth is-rounded is-medium">
+                                            <span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>Login as Admin</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="login-footer">
+                            <p>Made with ❤️ by <strong>JECRC Students</strong></p>
+                            <p class="is-size-7">Jaipur Engineering College and Research Centre</p>
+                            <p class="is-size-7">Jaipur, Rajasthan 🇮🇳</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="notification-container"></div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('#login-tabs li').click(function(){
+            $('#login-tabs li').removeClass('is-active');$(this).addClass('is-active');
+            $('.tab-content').removeClass('is-active');$('#'+$(this).data('tab')).addClass('is-active');
+        });
+        $('#student-school').change(function(){
+            if($(this).val()==='other')$('#other-school-field').slideDown();else $('#other-school-field').slideUp();
+        });
+        $('#student-login-form').submit(function(e){
+            e.preventDefault();
+            var sv=$('#student-school').val(),school=sv==='other'?$('#other-school-name').val():sv;
+            var u={id:generateUID(),name:$('#student-name').val(),age:parseInt($('#student-age').val()),school:school,state:$('#student-state').val(),grade:$('#student-grade').val(),role:'student',loginTime:new Date().toISOString()};
+            localStorage.setItem('currentUser',JSON.stringify(u));
+            showNotification('Welcome, '+u.name+'! 🎉','is-success');
+            setTimeout(function(){window.location.href='index.html';},1500);
+        });
+        $('#teacher-login-form').submit(function(e){
+            e.preventDefault();
+            var u={id:generateUID(),email:$('#teacher-email').val(),role:'teacher',loginTime:new Date().toISOString()};
+            localStorage.setItem('currentUser',JSON.stringify(u));
+            showNotification('Welcome, Teacher! 📚','is-info');
+            setTimeout(function(){window.location.href='dashboard.html';},1500);
+        });
+        $('#admin-login-form').submit(function(e){
+            e.preventDefault();
+            var u={id:$('#admin-id').val(),role:'admin',loginTime:new Date().toISOString()};
+            localStorage.setItem('currentUser',JSON.stringify(u));
+            showNotification('Welcome, Admin! 🛡️','is-warning');
+            setTimeout(function(){window.location.href='dashboard.html';},1500);
+        });
+    });
+    </script>
+</body>
+</html>
