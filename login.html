@@ -6,218 +6,276 @@
     <title>MindBloom - Login</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        *{box-sizing:border-box}
+        body{font-family:'Segoe UI',sans-serif;margin:0;padding:0}
+        @keyframes float{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-20px) rotate(5deg)}50%{transform:translateY(-10px) rotate(-3deg)}75%{transform:translateY(-25px) rotate(3deg)}}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+        @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+        .login-page{min-height:100vh;background:linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+        .floating-shapes{position:absolute;width:100%;height:100%;pointer-events:none;top:0;left:0}
+        .shape{position:absolute;font-size:2.5rem;animation:float 6s ease-in-out infinite;opacity:0.5}
+        .shape-1{top:10%;left:5%;animation-delay:0s}
+        .shape-2{top:15%;right:10%;animation-delay:1s}
+        .shape-3{bottom:25%;left:15%;animation-delay:2s}
+        .shape-4{top:55%;right:5%;animation-delay:0.5s}
+        .shape-5{top:5%;left:45%;animation-delay:1.5s}
+        .shape-6{bottom:10%;right:25%;animation-delay:3s}
+        .login-card{background:rgba(255,255,255,0.97);border-radius:24px;box-shadow:0 30px 60px rgba(0,0,0,0.25);overflow:hidden;width:100%;max-width:480px;position:relative;z-index:10}
+        .login-header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);padding:30px 20px;text-align:center}
+        .logo-container{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:8px}
+        .logo-icon{font-size:2.8rem;animation:bounce 2s infinite}
+        .login-header .title{margin-bottom:0!important}
+        .login-body{padding:25px 30px}
+        .login-footer{padding:15px 20px;background:#f5f5f5;text-align:center;border-top:1px solid #eee}
+        .tab-content{display:none}
+        .tab-content.is-active{display:block}
+        .field{margin-bottom:16px}
+        .label{font-weight:600;font-size:0.95rem;margin-bottom:6px!important}
+        .input,.select select{border-radius:25px!important;border:2px solid #e0dff5!important;padding:10px 18px;font-size:1rem;transition:border-color 0.3s}
+        .input:focus,.select select:focus{border-color:#7c3aed!important;box-shadow:0 0 0 3px rgba(124,58,237,0.15)!important}
+        .select{width:100%}
+        .select select{width:100%;height:auto;padding-right:36px}
+        .select.is-fullwidth,.select.is-fullwidth select{width:100%}
+        .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2)!important;border:none!important;color:#fff!important;font-weight:600;font-size:1.1rem;padding:12px 24px;border-radius:25px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;width:100%}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(102,126,234,0.4)}
+        .tabs ul{border-bottom:2px solid #e0dff5;margin:0;padding:0}
+        .tabs li{margin-bottom:-2px}
+        .tabs li.is-active a{border-bottom:3px solid #7c3aed;color:#7c3aed;font-weight:600}
+        .tabs a{color:#666;border-bottom:3px solid transparent;padding:10px 16px;text-decoration:none;display:flex;align-items:center;gap:6px;font-size:0.9rem}
+        #notification-container{position:fixed;top:20px;right:20px;z-index:10000;max-width:380px}
+        .notification-toast{border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.2);animation:slideIn 0.5s ease;margin-bottom:10px}
+        @media(max-width:520px){.login-body{padding:20px 18px}.login-card{margin:10px;border-radius:18px}.shape{font-size:2rem}.tabs a{font-size:0.8rem;padding:8px 10px}}
+    </style>
 </head>
-<body class="login-page">
-    <div class="floating-shapes">
-        <div class="shape shape-1">🌟</div>
-        <div class="shape shape-2">🌈</div>
-        <div class="shape shape-3">🦋</div>
-        <div class="shape shape-4">🌺</div>
-        <div class="shape shape-5">☀️</div>
-        <div class="shape shape-6">🎈</div>
-    </div>
-    <section class="section">
-        <div class="container">
-            <div class="columns is-centered">
-                <div class="column is-5">
-                    <div class="login-card">
-                        <div class="login-header">
-                            <div class="logo-container">
-                                <span class="logo-icon">🌱</span>
-                                <h1 class="title is-2 has-text-white">MindBloom</h1>
-                            </div>
-                            <p class="subtitle is-5 has-text-white-ter">Growing Happy Minds Together!</p>
+<body>
+    <div class="login-page">
+        <div class="floating-shapes">
+            <div class="shape shape-1">🌟</div>
+            <div class="shape shape-2">🌈</div>
+            <div class="shape shape-3">🦋</div>
+            <div class="shape shape-4">🌺</div>
+            <div class="shape shape-5">☀️</div>
+            <div class="shape shape-6">🎈</div>
+        </div>
+
+        <div class="login-card">
+            <div class="login-header">
+                <div class="logo-container">
+                    <span class="logo-icon">🌱</span>
+                    <h1 class="title is-2 has-text-white">MindBloom</h1>
+                </div>
+                <p class="subtitle is-5 has-text-white-ter" style="margin-top:5px">Growing Happy Minds Together!</p>
+            </div>
+
+            <div class="login-body">
+                <!-- Tabs -->
+                <div class="tabs is-centered" id="login-tabs" style="margin-bottom:20px">
+                    <ul>
+                        <li class="is-active" data-tab="student-tab">
+                            <a><i class="fas fa-child"></i> Student</a>
+                        </li>
+                        <li data-tab="teacher-tab">
+                            <a><i class="fas fa-chalkboard-teacher"></i> Teacher</a>
+                        </li>
+                        <li data-tab="admin-tab">
+                            <a><i class="fas fa-user-shield"></i> Admin</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Student Form -->
+                <div id="student-tab" class="tab-content is-active">
+                    <form id="student-login-form">
+                        <div class="field">
+                            <label class="label"><i class="fas fa-user"></i> Your Name</label>
+                            <input class="input" type="text" placeholder="What's your name?" id="student-name" required>
                         </div>
-                        <div class="login-body">
-                            <div class="tabs is-centered is-boxed" id="login-tabs">
-                                <ul>
-                                    <li class="is-active" data-tab="student-tab">
-                                        <a><span class="icon"><i class="fas fa-child"></i></span><span>Student</span></a>
-                                    </li>
-                                    <li data-tab="teacher-tab">
-                                        <a><span class="icon"><i class="fas fa-chalkboard-teacher"></i></span><span>Teacher</span></a>
-                                    </li>
-                                    <li data-tab="admin-tab">
-                                        <a><span class="icon"><i class="fas fa-user-shield"></i></span><span>Admin</span></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="student-tab" class="tab-content is-active">
-                                <form id="student-login-form">
-                                    <div class="field">
-                                        <label class="label"><i class="fas fa-user"></i> Your Name</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-rounded" type="text" placeholder="What's your name?" id="student-name" required>
-                                            <span class="icon is-left"><i class="fas fa-smile"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label"><i class="fas fa-birthday-cake"></i> Your Age</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-rounded" type="number" placeholder="How old are you?" id="student-age" min="5" max="18" required>
-                                            <span class="icon is-left"><i class="fas fa-hashtag"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label"><i class="fas fa-school"></i> School Name</label>
-                                        <div class="control">
-                                            <div class="select is-rounded is-fullwidth">
-                                                <select id="student-school" required>
-                                                    <option value="">Select your school</option>
-                                                    <option value="JECRC School">JECRC School, Jaipur</option>
-                                                    <option value="Delhi Public School">Delhi Public School, Jaipur</option>
-                                                    <option value="Kendriya Vidyalaya">Kendriya Vidyalaya, Jaipur</option>
-                                                    <option value="St. Xavier's School">St. Xavier's School, Jaipur</option>
-                                                    <option value="Maharaja Sawai Man Singh Vidyalaya">MSMS Vidyalaya, Jaipur</option>
-                                                    <option value="Ryan International">Ryan International, Jaipur</option>
-                                                    <option value="other">Other School</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field" id="other-school-field" style="display:none;">
-                                        <div class="control">
-                                            <input class="input is-rounded" type="text" placeholder="Enter your school name" id="other-school-name">
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label"><i class="fas fa-map-marker-alt"></i> State</label>
-                                        <div class="control">
-                                            <div class="select is-rounded is-fullwidth">
-                                                <select id="student-state" required>
-                                                    <option value="">Select your state</option>
-                                                    <option value="Rajasthan" selected>Rajasthan</option>
-                                                    <option value="Maharashtra">Maharashtra</option>
-                                                    <option value="Delhi">Delhi</option>
-                                                    <option value="Karnataka">Karnataka</option>
-                                                    <option value="Tamil Nadu">Tamil Nadu</option>
-                                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                                                    <option value="Gujarat">Gujarat</option>
-                                                    <option value="West Bengal">West Bengal</option>
-                                                    <option value="Kerala">Kerala</option>
-                                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label"><i class="fas fa-graduation-cap"></i> Class/Grade</label>
-                                        <div class="control">
-                                            <div class="select is-rounded is-fullwidth">
-                                                <select id="student-grade" required>
-                                                    <option value="">Select your class</option>
-                                                    <option value="1">Class 1</option><option value="2">Class 2</option>
-                                                    <option value="3">Class 3</option><option value="4">Class 4</option>
-                                                    <option value="5">Class 5</option><option value="6">Class 6</option>
-                                                    <option value="7">Class 7</option><option value="8">Class 8</option>
-                                                    <option value="9">Class 9</option><option value="10">Class 10</option>
-                                                    <option value="11">Class 11</option><option value="12">Class 12</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="field mt-5">
-                                        <div class="control">
-                                            <button type="submit" class="button is-primary is-fullwidth is-rounded is-medium btn-bounce">
-                                                <span class="icon"><i class="fas fa-rocket"></i></span>
-                                                <span>Let's Begin! 🚀</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="teacher-tab" class="tab-content">
-                                <form id="teacher-login-form">
-                                    <div class="field">
-                                        <label class="label">Email</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-rounded" type="email" placeholder="teacher@school.com" id="teacher-email" required>
-                                            <span class="icon is-left"><i class="fas fa-envelope"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label">Password</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-rounded" type="password" placeholder="Enter password" id="teacher-password" required>
-                                            <span class="icon is-left"><i class="fas fa-lock"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="field mt-5">
-                                        <button type="submit" class="button is-info is-fullwidth is-rounded is-medium">
-                                            <span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>Login as Teacher</span>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div id="admin-tab" class="tab-content">
-                                <form id="admin-login-form">
-                                    <div class="field">
-                                        <label class="label">Admin ID</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-rounded" type="text" placeholder="Enter Admin ID" id="admin-id" required>
-                                            <span class="icon is-left"><i class="fas fa-id-card"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label">Password</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-rounded" type="password" placeholder="Enter password" id="admin-password" required>
-                                            <span class="icon is-left"><i class="fas fa-lock"></i></span>
-                                        </div>
-                                    </div>
-                                    <div class="field mt-5">
-                                        <button type="submit" class="button is-danger is-fullwidth is-rounded is-medium">
-                                            <span class="icon"><i class="fas fa-sign-in-alt"></i></span><span>Login as Admin</span>
-                                        </button>
-                                    </div>
-                                </form>
+                        <div class="field">
+                            <label class="label"><i class="fas fa-birthday-cake"></i> Your Age</label>
+                            <input class="input" type="number" placeholder="How old are you?" id="student-age" min="5" max="18" required>
+                        </div>
+                        <div class="field">
+                            <label class="label"><i class="fas fa-school"></i> School Name</label>
+                            <div class="select is-fullwidth">
+                                <select id="student-school" required>
+                                    <option value="">Select your school</option>
+                                    <option value="JECRC School">JECRC School, Jaipur</option>
+                                    <option value="Delhi Public School">Delhi Public School, Jaipur</option>
+                                    <option value="Kendriya Vidyalaya">Kendriya Vidyalaya</option>
+                                    <option value="St. Xavier's School">St. Xavier's School, Jaipur</option>
+                                    <option value="Ryan International">Ryan International, Jaipur</option>
+                                    <option value="MSMS Vidyalaya">Maharaja Sawai Man Singh Vidyalaya</option>
+                                    <option value="other">Other School</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="login-footer">
-                            <p>Made with ❤️ by <strong>JECRC Students</strong></p>
-                            <p class="is-size-7">Jaipur Engineering College and Research Centre</p>
-                            <p class="is-size-7">Jaipur, Rajasthan 🇮🇳</p>
+                        <div class="field" id="other-school-field" style="display:none">
+                            <input class="input" type="text" placeholder="Enter your school name" id="other-school-name">
                         </div>
-                    </div>
+                        <div class="field">
+                            <label class="label"><i class="fas fa-map-marker-alt"></i> State</label>
+                            <div class="select is-fullwidth">
+                                <select id="student-state" required>
+                                    <option value="">Select your state</option>
+                                    <option value="Rajasthan" selected>Rajasthan</option>
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                    <option value="Tamil Nadu">Tamil Nadu</option>
+                                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="West Bengal">West Bengal</option>
+                                    <option value="Kerala">Kerala</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label"><i class="fas fa-graduation-cap"></i> Class / Grade</label>
+                            <div class="select is-fullwidth">
+                                <select id="student-grade" required>
+                                    <option value="">Select your class</option>
+                                    <option value="1">Class 1</option>
+                                    <option value="2">Class 2</option>
+                                    <option value="3">Class 3</option>
+                                    <option value="4">Class 4</option>
+                                    <option value="5">Class 5</option>
+                                    <option value="6">Class 6</option>
+                                    <option value="7">Class 7</option>
+                                    <option value="8">Class 8</option>
+                                    <option value="9">Class 9</option>
+                                    <option value="10">Class 10</option>
+                                    <option value="11">Class 11</option>
+                                    <option value="12">Class 12</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field" style="margin-top:25px">
+                            <button type="submit" class="button btn-primary is-medium">
+                                <span class="icon"><i class="fas fa-rocket"></i></span>
+                                <span>Let's Begin! 🚀</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Teacher Form -->
+                <div id="teacher-tab" class="tab-content">
+                    <form id="teacher-login-form">
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <input class="input" type="email" placeholder="teacher@school.com" id="teacher-email" required>
+                        </div>
+                        <div class="field">
+                            <label class="label">Password</label>
+                            <input class="input" type="password" placeholder="Enter password" id="teacher-password" required>
+                        </div>
+                        <div class="field" style="margin-top:25px">
+                            <button type="submit" class="button is-info is-fullwidth is-rounded is-medium">
+                                <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+                                <span>Login as Teacher</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Admin Form -->
+                <div id="admin-tab" class="tab-content">
+                    <form id="admin-login-form">
+                        <div class="field">
+                            <label class="label">Admin ID</label>
+                            <input class="input" type="text" placeholder="Enter Admin ID" id="admin-id" required>
+                        </div>
+                        <div class="field">
+                            <label class="label">Password</label>
+                            <input class="input" type="password" placeholder="Enter password" id="admin-password" required>
+                        </div>
+                        <div class="field" style="margin-top:25px">
+                            <button type="submit" class="button is-danger is-fullwidth is-rounded is-medium">
+                                <span class="icon"><i class="fas fa-sign-in-alt"></i></span>
+                                <span>Login as Admin</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
+
+            <div class="login-footer">
+                <p>Made with ❤️ by <strong>JECRC Students</strong></p>
+                <p style="font-size:0.85rem;margin-top:4px">Jaipur Engineering College and Research Centre</p>
+                <p style="font-size:0.85rem">Jaipur, Rajasthan 🇮🇳</p>
+            </div>
         </div>
-    </section>
+    </div>
+
     <div id="notification-container"></div>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="js/app.js"></script>
+
     <script>
-    $(document).ready(function(){
-        $('#login-tabs li').click(function(){
-            $('#login-tabs li').removeClass('is-active');$(this).addClass('is-active');
-            $('.tab-content').removeClass('is-active');$('#'+$(this).data('tab')).addClass('is-active');
+    // Utility functions
+    function generateUID(){return 'user_'+Date.now()+'_'+Math.random().toString(36).substr(2,9);}
+
+    function showNotification(msg,type){
+        type=type||'is-info';
+        var id='n'+Date.now();
+        var c=document.getElementById('notification-container');
+        if(c){
+            c.insertAdjacentHTML('beforeend','<div class="notification '+type+' notification-toast" id="'+id+'"><button class="delete" onclick="this.parentElement.remove()"></button>'+msg+'</div>');
+            setTimeout(function(){var e=document.getElementById(id);if(e)e.remove();},4000);
+        }
+    }
+
+    // Tab switching
+    document.querySelectorAll('#login-tabs li').forEach(function(tab){
+        tab.addEventListener('click',function(){
+            document.querySelectorAll('#login-tabs li').forEach(function(t){t.classList.remove('is-active');});
+            tab.classList.add('is-active');
+            document.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('is-active');});
+            document.getElementById(tab.getAttribute('data-tab')).classList.add('is-active');
         });
-        $('#student-school').change(function(){
-            if($(this).val()==='other')$('#other-school-field').slideDown();else $('#other-school-field').slideUp();
-        });
-        $('#student-login-form').submit(function(e){
-            e.preventDefault();
-            var sv=$('#student-school').val(),school=sv==='other'?$('#other-school-name').val():sv;
-            var u={id:generateUID(),name:$('#student-name').val(),age:parseInt($('#student-age').val()),school:school,state:$('#student-state').val(),grade:$('#student-grade').val(),role:'student',loginTime:new Date().toISOString()};
-            localStorage.setItem('currentUser',JSON.stringify(u));
-            showNotification('Welcome, '+u.name+'! 🎉','is-success');
-            setTimeout(function(){window.location.href='index.html';},1500);
-        });
-        $('#teacher-login-form').submit(function(e){
-            e.preventDefault();
-            var u={id:generateUID(),email:$('#teacher-email').val(),role:'teacher',loginTime:new Date().toISOString()};
-            localStorage.setItem('currentUser',JSON.stringify(u));
-            showNotification('Welcome, Teacher! 📚','is-info');
-            setTimeout(function(){window.location.href='dashboard.html';},1500);
-        });
-        $('#admin-login-form').submit(function(e){
-            e.preventDefault();
-            var u={id:$('#admin-id').val(),role:'admin',loginTime:new Date().toISOString()};
-            localStorage.setItem('currentUser',JSON.stringify(u));
-            showNotification('Welcome, Admin! 🛡️','is-warning');
-            setTimeout(function(){window.location.href='dashboard.html';},1500);
-        });
+    });
+
+    // Other school toggle
+    document.getElementById('student-school').addEventListener('change',function(){
+        document.getElementById('other-school-field').style.display=this.value==='other'?'block':'none';
+    });
+
+    // Student login
+    document.getElementById('student-login-form').addEventListener('submit',function(e){
+        e.preventDefault();
+        var sv=document.getElementById('student-school').value;
+        var school=sv==='other'?document.getElementById('other-school-name').value:sv;
+        var userData={
+            id:generateUID(),
+            name:document.getElementById('student-name').value,
+            age:parseInt(document.getElementById('student-age').value),
+            school:school,
+            state:document.getElementById('student-state').value,
+            grade:document.getElementById('student-grade').value,
+            role:'student',
+            loginTime:new Date().toISOString()
+        };
+        localStorage.setItem('currentUser',JSON.stringify(userData));
+        showNotification('Welcome, '+userData.name+'! 🎉','is-success');
+        setTimeout(function(){window.location.href='index.html';},1500);
+    });
+
+    // Teacher login
+    document.getElementById('teacher-login-form').addEventListener('submit',function(e){
+        e.preventDefault();
+        var userData={id:generateUID(),email:document.getElementById('teacher-email').value,role:'teacher',loginTime:new Date().toISOString()};
+        localStorage.setItem('currentUser',JSON.stringify(userData));
+        showNotification('Welcome, Teacher! 📚','is-info');
+        setTimeout(function(){window.location.href='dashboard.html';},1500);
+    });
+
+    // Admin login
+    document.getElementById('admin-login-form').addEventListener('submit',function(e){
+        e.preventDefault();
+        var userData={id:document.getElementById('admin-id').value,role:'admin',loginTime:new Date().toISOString()};
+        localStorage.setItem('currentUser',JSON.stringify(userData));
+        showNotification('Welcome, Admin! 🛡️','is-warning');
+        setTimeout(function(){window.location.href='dashboard.html';},1500);
     });
     </script>
 </body>
