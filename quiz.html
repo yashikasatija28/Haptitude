@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBloom - Mental Health Quiz</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <nav class="navbar is-primary" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html"><span class="logo-emoji">🌱</span><strong class="ml-2 is-size-4">MindBloom</strong></a>
+            <a role="button" class="navbar-burger" data-target="mainNav"><span></span><span></span><span></span></a>
+        </div>
+        <div id="mainNav" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="index.html"><i class="fas fa-home mr-2"></i>Home</a>
+                <a class="navbar-item is-active" href="quiz.html"><i class="fas fa-brain mr-2"></i>Quiz</a>
+                <a class="navbar-item" href="survey.html"><i class="fas fa-school mr-2"></i>Survey</a>
+                <a class="navbar-item" href="resources.html"><i class="fas fa-lightbulb mr-2"></i>Resources</a>
+                <a class="navbar-item" href="dashboard.html"><i class="fas fa-chart-bar mr-2"></i>Dashboard</a>
+            </div>
+            <div class="navbar-end"><div class="navbar-item"><button class="button is-light is-rounded" onclick="logout()"><i class="fas fa-sign-out-alt mr-1"></i>Logout</button></div></div>
+        </div>
+    </nav>
+
+    <section class="section quiz-section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="quiz-progress-container mb-5">
+                        <div class="level">
+                            <div class="level-left"><span class="tag is-primary is-large is-rounded" id="question-counter">Question 1 of 15</span></div>
+                            <div class="level-right"><span class="tag is-info is-large is-rounded" id="quiz-category-tag">Category</span></div>
+                        </div>
+                        <progress class="progress is-primary is-medium" id="quiz-progress" value="0" max="100">0%</progress>
+                    </div>
+                    <div class="card quiz-card" id="quiz-card">
+                        <div class="card-content">
+                            <div class="quiz-mascot" id="quiz-mascot">🤔</div>
+                            <h2 class="title is-3 has-text-centered quiz-question" id="quiz-question">Loading...</h2>
+                            <div class="quiz-options" id="quiz-options"></div>
+                        </div>
+                    </div>
+                    <div class="level mt-5">
+                        <div class="level-left">
+                            <button class="button is-light is-rounded is-medium" id="prev-btn" onclick="prevQuestion()" disabled><i class="fas fa-arrow-left mr-2"></i>Previous</button>
+                        </div>
+                        <div class="level-right">
+                            <button class="button is-primary is-rounded is-medium btn-bounce" id="next-btn" onclick="nextQuestion()" disabled>Next <i class="fas fa-arrow-right ml-2"></i></button>
+                            <button class="button is-success is-rounded is-medium btn-bounce" id="submit-quiz-btn" onclick="submitQuiz()" style="display:none;">Submit Quiz 🎉</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="notification-container"></div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    var quizQuestions=[
+        {id:1,category:"Emotional Well-Being",question:"How do you feel when you wake up in the morning to go to school?",mascot:"🌅",options:[{emoji:"☹️",text:"Very sad and don't want to go",value:1,weight:1.5},{emoji:"😟",text:"A little worried",value:2,weight:1.5},{emoji:"😐",text:"It's okay, normal",value:3,weight:1.5},{emoji:"😊",text:"Happy and ready!",value:4,weight:1.5},{emoji:"😄",text:"Super excited!",value:5,weight:1.5}]},
+        {id:2,category:"Emotional Well-Being",question:"How often do you feel happy during the day?",mascot:"😊",options:[{emoji:"☹️",text:"Almost never",value:1,weight:1.5},{emoji:"😟",text:"Sometimes",value:2,weight:1.5},{emoji:"😐",text:"About half the time",value:3,weight:1.5},{emoji:"😊",text:"Most of the time",value:4,weight:1.5},{emoji:"😄",text:"All the time!",value:5,weight:1.5}]},
+        {id:3,category:"Emotional Well-Being",question:"When something makes you sad, how long does the sadness last?",mascot:"💭",options:[{emoji:"☹️",text:"Very long, many days",value:1,weight:2.0},{emoji:"😟",text:"A full day",value:2,weight:2.0},{emoji:"😐",text:"A few hours",value:3,weight:2.0},{emoji:"😊",text:"A little while",value:4,weight:2.0},{emoji:"😄",text:"I bounce back quickly!",value:5,weight:2.0}]},
+        {id:4,category:"Social Connection",question:"Do you have friends you can talk to when you feel upset?",mascot:"👫",options:[{emoji:"☹️",text:"No, I have no one",value:1,weight:1.8},{emoji:"😟",text:"Maybe one person",value:2,weight:1.8},{emoji:"😐",text:"A couple of friends",value:3,weight:1.8},{emoji:"😊",text:"Yes, good friends!",value:4,weight:1.8},{emoji:"😄",text:"Many wonderful friends!",value:5,weight:1.8}]},
+        {id:5,category:"Social Connection",question:"How do you feel when working in a group with other kids?",mascot:"🤝",options:[{emoji:"☹️",text:"Very scared and nervous",value:1,weight:1.3},{emoji:"😟",text:"A bit uncomfortable",value:2,weight:1.3},{emoji:"😐",text:"It's alright",value:3,weight:1.3},{emoji:"😊",text:"I enjoy it!",value:4,weight:1.3},{emoji:"😄",text:"I love teamwork!",value:5,weight:1.3}]},
+        {id:6,category:"Social Connection",question:"Do other kids treat you nicely at school?",mascot:"🏫",options:[{emoji:"☹️",text:"They are often mean to me",value:1,weight:2.0},{emoji:"😟",text:"Some are not nice",value:2,weight:2.0},{emoji:"😐",text:"It depends on the day",value:3,weight:2.0},{emoji:"😊",text:"Most are nice",value:4,weight:2.0},{emoji:"😄",text:"Everyone is great!",value:5,weight:2.0}]},
+        {id:7,category:"Academic Confidence",question:"How do you feel about studying and homework?",mascot:"📚",options:[{emoji:"☹️",text:"I hate it, it's too hard",value:1,weight:1.2},{emoji:"😟",text:"It stresses me out",value:2,weight:1.2},{emoji:"😐",text:"It's okay, I manage",value:3,weight:1.2},{emoji:"😊",text:"I like learning!",value:4,weight:1.2},{emoji:"😄",text:"I love it!",value:5,weight:1.2}]},
+        {id:8,category:"Academic Confidence",question:"When you don't understand something in class, what do you do?",mascot:"✋",options:[{emoji:"☹️",text:"I stay quiet and feel bad",value:1,weight:1.5},{emoji:"😟",text:"I get very frustrated",value:2,weight:1.5},{emoji:"😐",text:"I try to figure it out alone",value:3,weight:1.5},{emoji:"😊",text:"I ask a friend for help",value:4,weight:1.5},{emoji:"😄",text:"I ask the teacher right away!",value:5,weight:1.5}]},
+        {id:9,category:"Academic Confidence",question:"How confident do you feel about doing well in exams?",mascot:"📝",options:[{emoji:"☹️",text:"Very scared, I'll fail",value:1,weight:1.3},{emoji:"😟",text:"Nervous and worried",value:2,weight:1.3},{emoji:"😐",text:"A bit nervous but okay",value:3,weight:1.3},{emoji:"😊",text:"I feel prepared!",value:4,weight:1.3},{emoji:"😄",text:"Very confident!",value:5,weight:1.3}]},
+        {id:10,category:"Family & Support",question:"Can you talk to your parents/family about your feelings?",mascot:"👨‍👩‍👧",options:[{emoji:"☹️",text:"Never, they don't listen",value:1,weight:1.8},{emoji:"😟",text:"Rarely, it's hard",value:2,weight:1.8},{emoji:"😐",text:"Sometimes",value:3,weight:1.8},{emoji:"😊",text:"Often, they care",value:4,weight:1.8},{emoji:"😄",text:"Always! They're the best!",value:5,weight:1.8}]},
+        {id:11,category:"Family & Support",question:"Do you feel safe and loved at home?",mascot:"🏠",options:[{emoji:"☹️",text:"Not at all",value:1,weight:2.5},{emoji:"😟",text:"Not really",value:2,weight:2.5},{emoji:"😐",text:"Sometimes",value:3,weight:2.5},{emoji:"😊",text:"Yes, mostly",value:4,weight:2.5},{emoji:"😄",text:"Always! Home is the best!",value:5,weight:2.5}]},
+        {id:12,category:"Self-Esteem",question:"How do you feel about yourself?",mascot:"🪞",options:[{emoji:"☹️",text:"I don't like myself",value:1,weight:2.0},{emoji:"😟",text:"I wish I was different",value:2,weight:2.0},{emoji:"😐",text:"I'm okay, I guess",value:3,weight:2.0},{emoji:"😊",text:"I like who I am!",value:4,weight:2.0},{emoji:"😄",text:"I'm awesome!",value:5,weight:2.0}]},
+        {id:13,category:"Self-Esteem",question:"Do you feel proud when you complete something?",mascot:"🏆",options:[{emoji:"☹️",text:"No, it doesn't matter",value:1,weight:1.3},{emoji:"😟",text:"Not really",value:2,weight:1.3},{emoji:"😐",text:"A little bit",value:3,weight:1.3},{emoji:"😊",text:"Yes, it feels good!",value:4,weight:1.3},{emoji:"😄",text:"Super proud!",value:5,weight:1.3}]},
+        {id:14,category:"Stress & Coping",question:"How often do you feel stressed or overwhelmed?",mascot:"😰",options:[{emoji:"☹️",text:"All the time",value:1,weight:2.0},{emoji:"😟",text:"Very often",value:2,weight:2.0},{emoji:"😐",text:"Sometimes",value:3,weight:2.0},{emoji:"😊",text:"Rarely",value:4,weight:2.0},{emoji:"😄",text:"Almost never!",value:5,weight:2.0}]},
+        {id:15,category:"Stress & Coping",question:"Do you sleep well at night?",mascot:"😴",options:[{emoji:"☹️",text:"I can't sleep, I worry a lot",value:1,weight:1.5},{emoji:"😟",text:"I often have trouble sleeping",value:2,weight:1.5},{emoji:"😐",text:"Sometimes good, sometimes bad",value:3,weight:1.5},{emoji:"😊",text:"I sleep pretty well",value:4,weight:1.5},{emoji:"😄",text:"I sleep great every night!",value:5,weight:1.5}]}
+    ];
+    var currentQuestion=0,answers={},detailedAnswers={};
+
+    $(document).ready(function(){
+        checkAuth();
+        $('.navbar-burger').click(function(){$(this).toggleClass('is-active');$('#mainNav').toggleClass('is-active');});
+        loadQuestion(currentQuestion);
+    });
+
+    function loadQuestion(index){
+        var q=quizQuestions[index],progress=(index/quizQuestions.length)*100;
+        $('#quiz-progress').val(progress);
+        $('#question-counter').text('Question '+(index+1)+' of '+quizQuestions.length);
+        $('#quiz-category-tag').text(q.category);$('#quiz-mascot').text(q.mascot);
+        $('#quiz-question').text(q.question);
+        var html='';
+        q.options.forEach(function(opt,i){
+            var sel=answers[q.id]===i?'selected':'';
+            html+='<div class="emotion-option '+sel+'" onclick="selectOption('+q.id+','+i+','+opt.value+','+opt.weight+')" data-index="'+i+'"><span class="emotion-emoji">'+opt.emoji+'</span><span class="emotion-text">'+opt.text+'</span></div>';
+        });
+        $('#quiz-options').html(html);
+        $('#prev-btn').prop('disabled',index===0);
+        if(index===quizQuestions.length-1){$('#next-btn').hide();$('#submit-quiz-btn').show();}
+        else{$('#next-btn').show();$('#submit-quiz-btn').hide();}
+        $('#next-btn').prop('disabled',answers[q.id]===undefined);
+        $('#submit-quiz-btn').prop('disabled',answers[q.id]===undefined);
+    }
+
+    function selectOption(qId,optIdx,value,weight){
+        answers[qId]=optIdx;
+        detailedAnswers[qId]={optionIndex:optIdx,value:value,weight:weight,weightedScore:value*weight,category:quizQuestions.find(function(q){return q.id===qId;}).category};
+        $('.emotion-option').removeClass('selected');
+        $('.emotion-option[data-index="'+optIdx+'"]').addClass('selected');
+        $('#next-btn').prop('disabled',false);$('#submit-quiz-btn').prop('disabled',false);
+    }
+
+    function nextQuestion(){if(currentQuestion<quizQuestions.length-1){currentQuestion++;loadQuestion(currentQuestion);}}
+    function prevQuestion(){if(currentQuestion>0){currentQuestion--;loadQuestion(currentQuestion);}}
+
+    function submitQuiz(){
+        if(Object.keys(answers).length<quizQuestions.length){showNotification('Please answer all questions! 📝','is-warning');return;}
+        var catScores={},catMax={};
+        Object.values(detailedAnswers).forEach(function(a){
+            if(!catScores[a.category]){catScores[a.category]=0;catMax[a.category]=0;}
+            catScores[a.category]+=a.weightedScore;catMax[a.category]+=5*a.weight;
+        });
+        var catPct={};Object.keys(catScores).forEach(function(c){catPct[c]=Math.round((catScores[c]/catMax[c])*100);});
+        var totalW=0,maxW=0;
+        Object.values(detailedAnswers).forEach(function(a){totalW+=a.weightedScore;maxW+=5*a.weight;});
+        var pct=Math.round((totalW/maxW)*100);
+        var level,lc,le;
+        if(pct>=80){level='Excellent';lc='is-success';le='🌟';}
+        else if(pct>=60){level='Good';lc='is-info';le='😊';}
+        else if(pct>=40){level='Needs Attention';lc='is-warning';le='🤗';}
+        else{level='Needs Support';lc='is-danger';le='💕';}
+        var user=JSON.parse(localStorage.getItem('currentUser'))||{};
+        var result={type:'mental-health-quiz',userId:user.id||'anon',userName:user.name||'Anonymous',school:user.school||'Unknown',state:user.state||'Unknown',grade:user.grade||'Unknown',overallPercentage:pct,level:level,levelColor:lc,levelEmoji:le,categoryPercentages:catPct,timestamp:new Date().toISOString()};
+        localStorage.setItem('lastQuizResult',JSON.stringify(result));
+        saveQuizResult(result);
+        showNotification('Quiz submitted successfully! 🎉','is-success');
+        setTimeout(function(){window.location.href='results.html';},1500);
+    }
+    </script>
+</body>
+</html>
