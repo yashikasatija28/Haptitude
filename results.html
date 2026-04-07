@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindBloom - Your Results</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <nav class="navbar is-primary" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.html"><span class="logo-emoji">🌱</span><strong class="ml-2 is-size-4">MindBloom</strong></a>
+            <a role="button" class="navbar-burger" data-target="mainNav"><span></span><span></span><span></span></a>
+        </div>
+        <div id="mainNav" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="index.html"><i class="fas fa-home mr-2"></i>Home</a>
+                <a class="navbar-item" href="quiz.html"><i class="fas fa-brain mr-2"></i>Quiz</a>
+                <a class="navbar-item" href="survey.html"><i class="fas fa-school mr-2"></i>Survey</a>
+                <a class="navbar-item" href="resources.html"><i class="fas fa-lightbulb mr-2"></i>Resources</a>
+                <a class="navbar-item" href="dashboard.html"><i class="fas fa-chart-bar mr-2"></i>Dashboard</a>
+            </div>
+            <div class="navbar-end"><div class="navbar-item"><button class="button is-light is-rounded" onclick="logout()"><i class="fas fa-sign-out-alt mr-1"></i>Logout</button></div></div>
+        </div>
+    </nav>
+
+    <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;"></canvas>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="card result-hero-card animate__animated animate__bounceIn">
+                        <div class="card-content has-text-centered">
+                            <div class="result-emoji" id="result-emoji">🌟</div>
+                            <h1 class="title is-1" id="result-title">Your Results</h1>
+                            <div class="result-score-circle">
+                                <svg viewBox="0 0 36 36" class="circular-chart">
+                                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <path class="circle" id="score-path" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                                    <text x="18" y="20.35" class="percentage" id="score-text">0%</text>
+                                </svg>
+                            </div>
+                            <h2 class="title is-2 mt-4" id="result-level">Loading...</h2>
+                            <p class="subtitle is-4" id="result-message">Calculating your results...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns is-centered mt-5">
+                <div class="column is-10">
+                    <h2 class="title is-3 has-text-centered section-title">📊 Category Breakdown</h2>
+                    <div class="columns is-multiline" id="category-cards"></div>
+                </div>
+            </div>
+
+            <div class="columns is-centered mt-5">
+                <div class="column is-6"><div class="card"><div class="card-content"><h3 class="title is-4 has-text-centered">📈 Score by Category</h3><canvas id="barChart"></canvas></div></div></div>
+                <div class="column is-6"><div class="card"><div class="card-content"><h3 class="title is-4 has-text-centered">🎯 Radar View</h3><canvas id="radarChart"></canvas></div></div></div>
+            </div>
+
+            <div class="columns is-centered mt-5">
+                <div class="column is-8">
+                    <div class="card recommendations-card">
+                        <div class="card-content">
+                            <h2 class="title is-3 has-text-centered">💡 Personalized Recommendations</h2>
+                            <div id="recommendations-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="has-text-centered mt-6">
+                <a href="quiz.html" class="button is-primary is-rounded is-medium m-2"><i class="fas fa-redo mr-2"></i>Retake Quiz</a>
+                <a href="survey.html" class="button is-warning is-rounded is-medium m-2"><i class="fas fa-star mr-2"></i>Take Survey</a>
+                <a href="resources.html" class="button is-success is-rounded is-medium m-2"><i class="fas fa-lightbulb mr-2"></i>View Resources</a>
+                <button class="button is-info is-rounded is-medium m-2" onclick="downloadReport()"><i class="fas fa-download mr-2"></i>Download Report</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JECRC Footer -->
+    <footer class="footer app-footer">
+        <div class="content has-text-centered">
+            <p><strong>MindBloom</strong> - Children's Mental Well-Being Assessment Tool</p>
+            <p>Developed at <strong>Jaipur Engineering College and Research Centre (JECRC)</strong></p>
+            <p><i class="fas fa-map-marker-alt mr-1"></i>Jaipur, Rajasthan, India 🇮🇳</p>
+        </div>
+    </footer>
+
+    <div id="notification-container"></div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+    $(document).ready(function(){
+        checkAuth();
+        $('.navbar-burger').click(function(){$(this).toggleClass('is-active');$('#mainNav').toggleClass('is-active');});
+        var urlP=new URLSearchParams(window.location.search),type=urlP.get('type');
+        var result;
+        if(type==='survey')result=JSON.parse(localStorage.getItem('lastSurveyResult'));
+        else result=JSON.parse(localStorage.getItem('lastQuizResult'));
+        if(!result){showNotification('No results found. Please take a quiz first!','is-warning');setTimeout(function(){window.location.href='index.html';},2000);return;}
+        displayResults(result);
+    });
+
+    function displayResults(result){
+        var pct=result.overallPercentage;
+        $('#result-emoji').text(result.levelEmoji);
+        $('#result-title').text(result.type==='school-survey'?'🏫 School Survey Results':'🧠 Mental Health Quiz Results');
+        $('#result-level').text(result.level);
+        setTimeout(function(){
+            $('#score-path').css('stroke-dasharray',pct+', 100');
+            var color=pct>=80?'#48c774':pct>=60?'#3298dc':pct>=40?'#ffdd57':'#f14668';
+            $('#score-path').css('stroke',color);
+        },500);
+        $({val:0}).animate({val:pct},{duration:2000,step:function(){$('#score-text').text(Math.floor(this.val)+'%');},complete:function(){$('#score-text').text(pct+'%');}});
+        var msgs={'Excellent':"Fantastic! You're doing amazingly well! 🌟",'Good':"Great job! Keep it up! 😊",'Needs Attention':"You're doing okay, let's improve together! 🤗",'Needs Improvement':"Some areas need attention. Let's work on them! 🤗",'Needs Support':"We're here for you! Let's explore resources. 💕"};
+        $('#result-message').text(msgs[result.level]||"Thank you for completing the assessment!");
+
+        var cats=result.type==='school-survey'?result.categoryScores:result.categoryPercentages;
+        var icons={'Emotional Well-Being':'💖','Social Connection':'👫','Academic Confidence':'📚','Family & Support':'👨‍👩‍👧','Self-Esteem':'💪','Stress & Coping':'🧘','Teacher Support':'👩‍🏫','Learning Experience':'📖','Peer Relations':'🤝','Safety':'🛡️','Physical Environment':'🏃','Creative Expression':'🎨','Hygiene & Nutrition':'🍽️','Communication':'🗣️','Resources':'📚','Overall Satisfaction':'🌈'};
+        var cardsHtml='';
+        Object.keys(cats).forEach(function(cat,i){
+            var score=result.type==='school-survey'?cats[cat].percentage:cats[cat];
+            var icon=icons[cat]||'📋';
+            var bc=score>=80?'is-success':score>=60?'is-info':score>=40?'is-warning':'is-danger';
+            cardsHtml+='<div class="column is-6 animate__animated animate__fadeInUp" style="animation-delay:'+i*0.15+'s"><div class="card category-result-card"><div class="card-content"><div class="level is-mobile"><div class="level-left"><span class="is-size-3 mr-2">'+icon+'</span><strong>'+cat+'</strong></div><div class="level-right"><span class="tag '+bc+' is-medium is-rounded">'+score+'%</span></div></div><progress class="progress '+bc+'" value="'+score+'" max="100">'+score+'%</progress></div></div></div>';
+        });
+        $('#category-cards').html(cardsHtml);
+
+        var labels=Object.keys(cats),data=labels.map(function(c){return result.type==='school-survey'?cats[c].percentage:cats[c];});
+        new Chart($('#barChart')[0],{type:'bar',data:{labels:labels,datasets:[{label:'Score %',data:data,backgroundColor:data.map(function(v){return v>=80?'#48c77488':v>=60?'#3298dc88':v>=40?'#ffdd5788':'#f1466888';}),borderColor:data.map(function(v){return v>=80?'#48c774':v>=60?'#3298dc':v>=40?'#ffdd57':'#f14668';}),borderWidth:2,borderRadius:8}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100},x:{ticks:{font:{size:10}}}}}});
+        new Chart($('#radarChart')[0],{type:'radar',data:{labels:labels,datasets:[{label:'Your Score',data:data,fill:true,backgroundColor:'rgba(54,162,235,0.2)',borderColor:'rgba(54,162,235,1)',pointBackgroundColor:'rgba(54,162,235,1)',pointRadius:5}]},options:{responsive:true,scales:{r:{beginAtZero:true,max:100}}}});
+
+        generateRecommendations(result);
+        if(pct>=70)launchConfetti();
+    }
+
+    function generateRecommendations(result){
+        var recs=[],cats=result.type==='school-survey'?result.categoryScores:result.categoryPercentages;
+        Object.keys(cats).forEach(function(cat){
+            var score=result.type==='school-survey'?cats[cat].percentage:cats[cat];
+            if(score<50)recs.push(getRec(cat,'low'));
+            else if(score<70)recs.push(getRec(cat,'medium'));
+        });
+        if(recs.length===0)recs.push({icon:'🌟',title:"You're doing great!",text:'Keep up the wonderful work!'});
+        var html='';recs.forEach(function(r){html+='<div class="recommendation-item"><span class="rec-icon">'+r.icon+'</span><div><strong>'+r.title+'</strong><p>'+r.text+'</p></div></div>';});
+        $('#recommendations-list').html(html);
+    }
+
+    function getRec(cat,sev){
+        var r={'Emotional Well-Being':{low:{icon:'💖',title:'Emotional Support',text:'Talk to a trusted adult. Try journaling and deep breathing!'},medium:{icon:'💖',title:'Boost Your Mood',text:'Try activities you enjoy and practice gratitude daily!'}},'Social Connection':{low:{icon:'👫',title:'Building Friendships',text:'Join a club or activity. One good friend makes all the difference!'},medium:{icon:'👫',title:'Strengthen Connections',text:'Practice kindness and start conversations!'}},'Academic Confidence':{low:{icon:'📚',title:'Study Support',text:"Ask for help. Break big tasks into small steps. You can do it!"},medium:{icon:'📚',title:'Build Confidence',text:'Set small goals. Celebrate each success!'}},'Self-Esteem':{low:{icon:'💪',title:'You Are Special!',text:'Write 3 things you like about yourself daily!'},medium:{icon:'💪',title:'Believe in Yourself',text:'Replace "I can\'t" with "I\'ll try my best!"'}},'Stress & Coping':{low:{icon:'🧘',title:'Stress Relief',text:'Try deep breathing, stretching, or coloring.'},medium:{icon:'🧘',title:'Relaxation Tips',text:'Create a routine with breaks. Exercise helps!'}},'Family & Support':{low:{icon:'🏠',title:'Reach Out',text:'Write a letter to family. A school counselor can help too.'},medium:{icon:'🏠',title:'Open Communication',text:'Share your day with family in quiet moments.'}}};
+        return r[cat]&&r[cat][sev]?r[cat][sev]:{icon:'💡',title:'Improve '+cat,text:'Focus on small improvements each day!'};
+    }
+
+    function launchConfetti(){
+        var canvas=document.getElementById('confetti-canvas'),ctx=canvas.getContext('2d');
+        canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+        var particles=[],colors=['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#ff6bd6','#845ef7'];
+        for(var i=0;i<150;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,w:Math.random()*10+5,h:Math.random()*6+3,color:colors[Math.floor(Math.random()*colors.length)],speed:Math.random()*3+2,angle:Math.random()*Math.PI*2,spin:(Math.random()-0.5)*0.2});
+        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);var active=false;particles.forEach(function(p){if(p.y<canvas.height){active=true;p.y+=p.speed;p.x+=Math.sin(p.angle);p.angle+=p.spin;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.angle);ctx.fillStyle=p.color;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();}});if(active)requestAnimationFrame(animate);}
+        animate();
+    }
+
+    function downloadReport(){
+        var result=JSON.parse(localStorage.getItem('lastQuizResult'))||JSON.parse(localStorage.getItem('lastSurveyResult'));
+        if(!result)return;
+        var r='MINDBLOOM - Mental Well-Being Report\n====================================\n\n';
+        r+='Name: '+result.userName+'\nSchool: '+result.school+'\nState: '+result.state+'\n';
+        r+='Date: '+new Date(result.timestamp).toLocaleDateString()+'\n\n';
+        r+='Overall Score: '+result.overallPercentage+'%\nLevel: '+result.level+'\n\n';
+        r+='Category Breakdown:\n--------------------\n';
+        var cats=result.type==='school-survey'?result.categoryScores:result.categoryPercentages;
+        Object.keys(cats).forEach(function(c){var s=result.type==='school-survey'?cats[c].percentage:cats[c];r+=c+': '+s+'%\n';});
+        r+='\n\nGenerated by MindBloom - JECRC, Jaipur, Rajasthan';
+        var blob=new Blob([r],{type:'text/plain'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+        a.href=url;a.download='MindBloom_Report_'+result.userName+'.txt';a.click();URL.revokeObjectURL(url);
+        showNotification('Report downloaded! 📄','is-success');
+    }
+    </script>
+</body>
+</html>
